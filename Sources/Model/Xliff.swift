@@ -62,7 +62,6 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         if attributeDict["id"] != nil {
             translationDataList.append(("id", attributeDict["id"]!))
         }
-
     }
     
     func getTranslationItemList() -> [TranslationItem] {
