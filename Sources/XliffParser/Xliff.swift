@@ -14,6 +14,8 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     var fileUrl: URL
     
     var translationDataList: [(String, String)] = [ ]
+
+    public init() {}
     
     init(fileUrl: URL) {
         self.fileUrl = fileUrl

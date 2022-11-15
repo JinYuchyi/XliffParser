@@ -12,6 +12,8 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
         lhs.source < rhs.source
     }
 
+    public init() {}
+
     public let id: String
     var source: String
     var target: String
