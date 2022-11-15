@@ -12,6 +12,15 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
         lhs.source < rhs.source
     }
 
+//    public init() {}
+    public init(id: String, source: String, target: String, targetLanguage: String, xliffFileUrl: URL) {
+        self.id = id
+        self.source = source
+        self.target = target
+        self.targetLanguage = targetLanguage
+        self.xliffFileUrl = xliffFileUrl
+    }
+
     public let id: String
     var source: String
     var target: String

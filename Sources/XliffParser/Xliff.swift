@@ -14,8 +14,9 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     var fileUrl: URL
     
     var translationDataList: [(String, String)] = [ ]
-    
-    init(fileUrl: URL) {
+
+
+    public init(fileUrl: URL) {
         self.fileUrl = fileUrl
         super.init()
         let parser = XMLParser(contentsOf: fileUrl)!
@@ -28,7 +29,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         }
     }
 
-    init(data: Data, fileUrl: URL) {
+    public init(data: Data, fileUrl: URL) {
         self.fileUrl = fileUrl
         super.init()
         let parser = XMLParser(data: data)
