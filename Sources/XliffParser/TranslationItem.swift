@@ -29,8 +29,8 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
 
     public let id: String
     public var source: String
-    var target: String
-    var targetLanguage: String
-    var xliffFileUrl: URL?
+    public var target: String
+    public var targetLanguage: String
+    public var xliffFileUrl: URL?
 
 }

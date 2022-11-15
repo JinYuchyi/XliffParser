@@ -9,11 +9,11 @@ import Foundation
 
 public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     
-    var sourceLanugage: String = ""
-    var targetLanguage: String = ""
-    var fileUrl: URL
+    public var sourceLanugage: String = ""
+    public var targetLanguage: String = ""
+    public var fileUrl: URL
     
-    var translationDataList: [(String, String)] = [ ]
+    public var translationDataList: [(String, String)] = [ ]
 
 
     public init(fileUrl: URL) {
