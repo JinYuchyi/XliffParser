@@ -65,7 +65,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         }
     }
     
-    func getTranslationItemList() -> [TranslationItem] {
+    public func getTranslationItemList() -> [TranslationItem] {
         var result: [TranslationItem] = []
         var currentIndex = 0
 
