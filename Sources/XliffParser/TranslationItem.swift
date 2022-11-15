@@ -12,7 +12,13 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
         lhs.source < rhs.source
     }
 
-//    public init() {}
+    public init() {
+        self.id = ""
+        self.source = ""
+        self.target = ""
+        self.targetLanguage = ""
+        self.xliffFileUrl = nil
+    }
     public init(id: String, source: String, target: String, targetLanguage: String, xliffFileUrl: URL) {
         self.id = id
         self.source = source
@@ -25,6 +31,6 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
     var source: String
     var target: String
     var targetLanguage: String
-    var xliffFileUrl: URL
+    var xliffFileUrl: URL?
 
 }
