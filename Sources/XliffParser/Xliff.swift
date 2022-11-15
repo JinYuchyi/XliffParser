@@ -47,11 +47,11 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         return [String](repeating: "  ", count: self.depth).joined()
     }
 
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
+    public func parser(_ parser: XMLParser, foundCharacters string: String) {
         translationDataList.append(("string", string))
     }
 
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if attributeDict["/Users/jin/Documents/Development/swift-project/swift/include/swift/AST/DiagnosticsClangImporter.defsource-language"] != nil {
             sourceLanugage = attributeDict["source-language"]!
         }
