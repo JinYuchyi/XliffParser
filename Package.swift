@@ -21,8 +21,6 @@ let package = Package(
         .target(
             name: "XliffParser",
             dependencies: []),
-        .testTarget(
-            name: "XliffParserTests",
-            dependencies: ["XliffParser"]),
+    
     ]
 )
