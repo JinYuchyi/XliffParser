@@ -14,6 +14,8 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     public var fileUrl: URL
     
     public var translationDataList: [(String, String)] = [ ]
+    
+    public var translationDict: [String: [String]] = [:]
 
 
     public init(fileUrl: URL) {
@@ -53,9 +55,9 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     }
 
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if attributeDict["/Users/jin/Documents/Development/swift-project/swift/include/swift/AST/DiagnosticsClangImporter.defsource-language"] != nil {
+//        if attributeDict["/Users/jin/Documents/Development/swift-project/swift/include/swift/AST/DiagnosticsClangImporter.defsource-language"] != nil {
             sourceLanugage = attributeDict["source-language"]!
-        }
+//        }
         if attributeDict["target-language"] != nil {
             targetLanguage = attributeDict["target-language"]!
         }
@@ -63,6 +65,21 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         if attributeDict["id"] != nil {
             translationDataList.append(("id", attributeDict["id"]!))
         }
+    }
+    
+    //[En-Content: [LocalizedContent: Language ]]
+    public func getTranslationDict() -> [String: [String: String]] {
+        var result: [String: [String: String]] = [:]
+        let list = getTranslationItemList()
+        for item in list {
+            var tmpItem = [item.target : item.targetLanguage ]
+            if result[item.source] == nil {
+                result[item.source] = tmpItem
+            } else {
+                result[item.source]![item.target] = item.targetLanguage
+            }
+        }
+        return result
     }
     
     public func getTranslationItemList() -> [TranslationItem] {
