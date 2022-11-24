@@ -30,6 +30,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             print("error \(parser.parserError)")
         }
     }
+    
 
     public init(data: Data, fileUrl: URL) {
         self.fileUrl = fileUrl
@@ -68,10 +69,10 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     }
     
     //[En-Content: [LocalizedContent: Language ]]
-    public func getTranslationDict() -> [String: [String: String]] {
+    public func getTranslationDict(itemList: [TranslationItem]) -> [String: [String: String]] {
         var result: [String: [String: String]] = [:]
-        let list = getTranslationItemList()
-        for item in list {
+//        let list = getTranslationItemList()
+        for item in itemList {
             var tmpItem = [item.target : item.targetLanguage ]
             if result[item.source] == nil {
                 result[item.source] = tmpItem
