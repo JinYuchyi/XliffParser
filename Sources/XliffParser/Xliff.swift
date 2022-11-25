@@ -27,7 +27,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         if success {
             print("done")
         } else {
-            print("error \(parser.parserError)")
+            print("error \(parser.parserError!.localizedDescription)")
         }
     }
     
@@ -41,7 +41,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         if success {
             print("done")
         } else {
-            print("error \(parser.parserError)")
+            print("error \(parser.parserError!.localizedDescription)")
         }
     }
     
@@ -69,11 +69,16 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     }
     
     //[En-Content: [LocalizedContent: Language ]]
-    public func getTranslationDict(itemList: [TranslationItem]) -> [String: [String: String]] {
+    public func getTranslationDict(itemList: [TranslationItem]? = nil) -> [String: [String: String]] {
         var result: [String: [String: String]] = [:]
-//        let list = getTranslationItemList()
-        for item in itemList {
-            var tmpItem = [item.target : item.targetLanguage ]
+        var list: [TranslationItem] = []
+        if itemList == nil {
+            list = getTranslationItemList()
+        } else {
+            list = itemList!
+        }
+        for item in list {
+            let tmpItem = [item.target : item.targetLanguage ]
             if result[item.source] == nil {
                 result[item.source] = tmpItem
             } else {
