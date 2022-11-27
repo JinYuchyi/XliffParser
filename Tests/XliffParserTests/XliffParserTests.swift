@@ -2,10 +2,11 @@ import XCTest
 @testable import XliffParser
 
 final class XliffParserTests: XCTestCase {
-    var xliff = Xliff(fileUrl: url)
     let url = URL(fileURLWithPath: "/Users/jin/Downloads/T9_UserInput_Strings/CH/SydneyWhatsNew1C/SydneyWhatsNew1C.xliff")
+    var xliff: Xliff?
+
     
-    func initVal() {
+    override func setUp() {
         xliff = Xliff(fileUrl: url)
         if xliff == nil {
             XCTAssert(false, "Xliff init failed.")
@@ -13,15 +14,12 @@ final class XliffParserTests: XCTestCase {
     }
     
     func testXliffDictTest() throws {
-        initVal()
         let dict = xliff!.getTranslationDict()
         print(dict.count)
         XCTAssertTrue(dict.count > 0 )
     }
     func testGetLanguage() throws {
-        let dict = xliff!.getTranslationDict()
-        print(dict.count)
-        XCTAssertTrue(dict.count > 0 )
+        XCTAssertTrue(xliff!.sourceLanugage != "" &&  xliff!.targetLanguage != "")
     }
 }
 
