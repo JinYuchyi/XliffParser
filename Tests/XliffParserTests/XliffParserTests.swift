@@ -2,7 +2,7 @@ import XCTest
 @testable import XliffParser
 
 final class XliffParserTests: XCTestCase {
-    let url = URL(fileURLWithPath: "/Users/jin/Downloads/T9_UserInput_Strings/CH/SydneyWhatsNew1C/SydneyWhatsNew1C.xliff")
+    let url = URL(fileURLWithPath: "/Users/jin/Downloads/XliffFiles/Rome/K/IASUtilities.xliff")
     var xliff: Xliff?
 
     
@@ -15,11 +15,29 @@ final class XliffParserTests: XCTestCase {
     
     func testXliffDictTest() throws {
         let dict = xliff!.getTranslationDict()
-        print(dict.count)
+//        print(dict.count)
         XCTAssertTrue(dict.count > 0 )
     }
     func testGetLanguage() throws {
         XCTAssertTrue(xliff!.sourceLanugage != "" &&  xliff!.targetLanguage != "")
+    }
+    func testXliffInBatch() throws {
+        let folder: String = "/Users/jin/Downloads/XliffFiles/Rome/K"
+        guard let paths = try? FileManager.default.subpathsOfDirectory(atPath: folder).filter({$0.contains(".xliff")}).map({folder + "/" + $0}) else {
+            XCTAssert(false)
+            return
+        }
+        for path in paths {
+            xliff = Xliff(fileUrl: URL(fileURLWithPath: path))
+            let dict = xliff!.getTranslationDict()
+            if dict.count > 0 {
+//                print(dict.count)
+            } else {
+                if !path.contains("_ignore"){
+                    XCTAssert(false, "Empty: \(path)")
+                }
+            }
+        }
     }
 }
 

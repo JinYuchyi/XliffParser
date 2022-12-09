@@ -12,11 +12,10 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     public var sourceLanugage: String = ""
     public var targetLanguage: String = ""
     public var fileUrl: URL
-    
+    public var product: String = ""
+    public var origin: String = ""
     public var translationDataList: [(String, String)] = [ ]
-    
     public var translationDict: [String: [String]] = [:]
-
 
     public init(fileUrl: URL) {
         self.fileUrl = fileUrl
@@ -56,8 +55,6 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     }
 
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-//        sourceLanugage = attributeDict["source-language"] ?? ""
-//        targetLanguage = attributeDict["target-language"] ?? ""
         if elementName == "file" {
             guard let _sourceLanugage = attributeDict["source-language"], let _targetLanugage = attributeDict["target-language"] else {
                 print("Error: Cannot find source/target language.")
@@ -65,6 +62,17 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             }
             sourceLanugage = _sourceLanugage
             targetLanguage = _targetLanugage
+
+            guard let _origin = attributeDict["origin"] else {
+                print("Error: Cannot find origin.")
+                return
+            }
+            origin = _origin
+            guard let _product = attributeDict["product"] else {
+                print("Error: Cannot find product.")
+                return
+            }
+            product = _product
         }
         
         translationDataList.append(("elementName", elementName))
@@ -138,26 +146,10 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         // Get content end border
         guard let source_end = getContentEndBorderIndex(currentIndex: sourceLabelIndex) else {return nil}
         guard let target_end = getContentEndBorderIndex(currentIndex: targetLabelIndex) else {return nil}
-//        if translationDataList[(sourceLabelIndex+1)..<end].filter({$0.0 != "string"}).count == 0 {
-//            let sourceContentList = Array(translationDataList[(sourceLabelIndex+1)..<targetLabelIndex]).map({$0.1})
-//            sourceContent = sourceContentList.joined(separator: "")
-//            if sourceContent == "" {
-//                print("Empty content \(sourceContentList.count): \(sourceContentList)")
-//            }
-//        } else {
-//            print("Error: Cannot parse source content from trans unit \(idStr).")
-//            return nil
-//        }
+
         guard let _sourceContent = combineContent(translationDataList: translationDataList, start: sourceLabelIndex+1, end: source_end) else {return nil}
         sourceContent = _sourceContent
-        
-//        if translationDataList[(targetLabelIndex+1)..<noteLabelIndex].filter({$0.0 != "string"}).count == 0 {
-//            let targetContentList = Array(translationDataList[(targetLabelIndex+1)..<noteLabelIndex]).map({$0.1})
-//            targetContent = targetContentList.joined(separator: "")
-//        } else {
-//            print("Error: Cannot parse target content from trans unit \(idStr).")
-//            return nil
-//        }
+
         guard let _targetContent = combineContent(translationDataList: translationDataList, start: targetLabelIndex+1, end: target_end) else {return nil}
         targetContent = _targetContent
 
@@ -169,13 +161,13 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             return nil
         }
         if translationDataList[start...end].filter({$0.0 != "string"}).count != 0 {
-            print("Error: Cannot parse source content from trans unit.")
+//            print("Error: Cannot parse source content from trans unit. \(fileUrl)")
             return nil
         }
         let contentList = Array(translationDataList[start...end]).map({$0.1})
         let content = contentList.joined(separator: "")
         if content == "" {
-            print("Empty content \(content.count): \(contentList)")
+//            print("Empty content \(content.count): \(contentList)")
             return nil
         }
         return content
