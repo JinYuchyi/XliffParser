@@ -153,7 +153,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         guard let _targetContent = combineContent(translationDataList: translationDataList, start: targetLabelIndex+1, end: target_end) else {return nil}
         targetContent = _targetContent
 
-        return TranslationItem(id: idStr, source: sourceContent, target: targetContent, targetLanguage: targetLanguage, xliffFileUrl: fileUrl)
+        return TranslationItem(id: idStr, source: sourceContent, target: targetContent, targetLanguage: targetLanguage, xliffFileUrl: fileUrl, product: product)
     }
     
     private func combineContent(translationDataList: [(String, String)], start: Int, end: Int) -> String? {
