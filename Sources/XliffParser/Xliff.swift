@@ -37,11 +37,9 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         let parser = XMLParser(data: data)
         parser.delegate = self
         let success = parser.parse()
-        if success {
-            print("done")
-        } else {
+        if !success {
             print("error \(parser.parserError!.localizedDescription)")
-        }
+        } 
     }
     
     
