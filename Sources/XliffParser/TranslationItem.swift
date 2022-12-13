@@ -13,7 +13,9 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
     public var target: String
     public var targetLanguage: String
     public var product: String
-    public var xliffFileUrl: URL?
+    public var xliffFileUrl: String
+    public var origin: String
+    public var x_path: String
 
 
     public static func < (lhs: TranslationItem, rhs: TranslationItem) -> Bool {
@@ -25,16 +27,20 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
         self.source = ""
         self.target = ""
         self.targetLanguage = ""
-        self.xliffFileUrl = nil
+        self.xliffFileUrl = ""
         self.product = ""
+        self.origin = ""
+        self.x_path = ""
     }
-    public init(id: String, source: String, target: String, targetLanguage: String, xliffFileUrl: URL, product: String) {
+    public init(id: String, source: String, target: String, targetLanguage: String, xliffFileUrl: String, product: String, origin: String, x_path: String) {
         self.id = id
         self.source = source
         self.target = target
         self.targetLanguage = targetLanguage
         self.xliffFileUrl = xliffFileUrl
         self.product = product
+        self.origin = origin
+        self.x_path = x_path
     }
 
 
