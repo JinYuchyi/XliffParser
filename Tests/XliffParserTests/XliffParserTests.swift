@@ -2,7 +2,7 @@ import XCTest
 @testable import XliffParser
 
 final class XliffParserTests: XCTestCase {
-    let url = URL(fileURLWithPath: "/Users/jin/Downloads/XliffFiles/Rome/K/IASUtilities.xliff")
+    let url = URL(fileURLWithPath: "/Users/jin/Downloads/SketchTest/XliffFiles/Rome/K/IASUtilities.xliff")
     var xliff: Xliff?
 
     
@@ -18,6 +18,13 @@ final class XliffParserTests: XCTestCase {
 //        print(dict.count)
         XCTAssertTrue(dict.count > 0 )
     }
+    
+    func testXliffXSource() throws {
+        let dict = xliff!.getTranslationDict()
+//        print(dict.count)
+        XCTAssertTrue(xliff?.x_source != "" )
+    }
+    
     func testGetLanguage() throws {
         XCTAssertTrue(xliff!.sourceLanugage != "" &&  xliff!.targetLanguage != "")
     }

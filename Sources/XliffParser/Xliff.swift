@@ -14,6 +14,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     public var fileUrl: URL
     public var product: String = ""
     public var origin: String = ""
+    public var x_source: String = ""
     public var translationDataList: [(String, String)] = [ ]
     public var translationDict: [String: [String]] = [:]
 
@@ -24,7 +25,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         parser.delegate = self
         let success = parser.parse()
         if success {
-            print("done")
+//            print("done")
         } else {
             print("error \(String(describing: parser.parserError?.localizedDescription))")
         }
@@ -71,6 +72,11 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
                 return
             }
             product = _product
+            guard let _x_source = attributeDict["x-source-path"] else {
+                print("Error: Cannot find x-source-path.")
+                return
+            }
+            x_source = _x_source
         }
         
         translationDataList.append(("elementName", elementName))
