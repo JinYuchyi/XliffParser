@@ -18,8 +18,8 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     public var product: String = ""
     public var origin: String = ""
     public var x_path: String = ""
-    public var translationDataList: [(String, String)] = [ ]
-    public var translationDict: [String: [String]] = [:]
+    private var translationDataList: [(String, String)] = [ ]
+//    public var translationDict: [String: [String]] = [:]
 
     public init(fileUrl: URL) {
         self.fileUrl = fileUrl
