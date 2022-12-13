@@ -87,7 +87,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             }
             product = _product
             guard let _x_source = attributeDict["x-source-path"] else {
-                print("Error: Cannot find x-source-path.")
+                print("Error: Cannot find x-source-path. \(fileUrl) \(targetLanguage)")
                 return
             }
             x_path = _x_source

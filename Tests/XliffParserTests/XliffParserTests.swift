@@ -2,11 +2,12 @@ import XCTest
 @testable import XliffParser
 
 final class XliffParserTests: XCTestCase {
-    let url = URL(fileURLWithPath: "/Users/jin/Downloads/SketchTest/XliffFiles/Rome/K/IASUtilities.xliff")
+    let url = URL(fileURLWithPath: "/Users/jin/Downloads/XliffFiles/Rome/TA/FaceTime.xliff")
     var xliff: Xliff?
 
     
     override func setUp() {
+        print("Setup")
         xliff = Xliff(fileUrl: url)
         if xliff == nil {
             XCTAssert(false, "Xliff init failed.")
