@@ -8,12 +8,12 @@
 import Foundation
 
 public struct TranslationItem: Identifiable, Comparable, Hashable {
-    public let id: String
+    public let id: UUID
     public var source: String
     public var target: String
     public var targetLanguage: String
     public var product: String
-    public var xliffFileUrl: String
+    public var xliffFileUrl: URL?
     public var origin: String
     public var x_path: String
 
@@ -23,16 +23,16 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
     }
 
     public init() {
-        self.id = ""
+        self.id = UUID()
         self.source = ""
         self.target = ""
         self.targetLanguage = ""
-        self.xliffFileUrl = ""
+        self.xliffFileUrl = nil
         self.product = ""
         self.origin = ""
         self.x_path = ""
     }
-    public init(id: String, source: String, target: String, targetLanguage: String, xliffFileUrl: String, product: String, origin: String, x_path: String) {
+    public init(id: UUID, source: String, target: String, targetLanguage: String, xliffFileUrl: URL, product: String, origin: String, x_path: String) {
         self.id = id
         self.source = source
         self.target = target

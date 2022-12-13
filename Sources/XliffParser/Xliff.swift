@@ -17,7 +17,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     public var fileUrl: URL
     public var product: String = ""
     public var origin: String = ""
-    public var x_source: String = ""
+    public var x_path: String = ""
     public var translationDataList: [(String, String)] = [ ]
     public var translationDict: [String: [String]] = [:]
 
@@ -54,7 +54,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         self.fileUrl = fileUrl
         self.product = product
         self.origin = origin
-        self.x_source = x_source
+        self.x_path = x_source
     }
     
     
@@ -90,7 +90,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
                 print("Error: Cannot find x-source-path.")
                 return
             }
-            x_source = _x_source
+            x_path = _x_source
         }
         
         translationDataList.append(("elementName", elementName))
@@ -100,9 +100,9 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     }
     
     //[En-Content: [LocalizedContent: Language ]]
-    public func getTranslationDict(itemList: [Xliff]? = nil) -> [String: [String: String]] {
+    public func getTranslationDict(itemList: [TranslationItem]? = nil) -> [String: [String: String]] {
         var result: [String: [String: String]] = [:]
-        var list: [Xliff] = []
+        var list: [TranslationItem] = []
         if itemList == nil {
             list = getTranslationItemList()
         } else {
@@ -110,17 +110,17 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         }
         for item in list {
             let tmpItem = [item.targetLanguage : item.targetLanguage ]
-            if result[item.sourceLanugage] == nil {
-                result[item.sourceLanugage] = tmpItem
+            if result[item.source] == nil {
+                result[item.target] = tmpItem
             } else {
-                result[item.sourceLanugage]![item.targetLanguage] = item.targetLanguage
+                result[item.source]![item.target] = item.targetLanguage
             }
         }
         return result
     }
     
-    public func getTranslationItemList() -> [Xliff] {
-        var result: [Xliff] = []
+    public func getTranslationItemList() -> [TranslationItem] {
+        var result: [TranslationItem] = []
         var currentIndex = 0
 
         while (currentIndex <= (translationDataList.count - 1) ) {
@@ -151,7 +151,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         return nil
     }
 
-    private func getValidTransUnitElements(unitIndex: Int) -> Xliff? {
+    private func getValidTransUnitElements(unitIndex: Int) -> TranslationItem? {
 //        let idIndex = unitIndex + 1
 //        if translationDataList[idIndex].0 == "id" && isValidIdString(idStr: translationDataList[idIndex].1) {
 //            idStr = translationDataList[idIndex].1
@@ -168,8 +168,9 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         guard let _targetContent = combineContent(translationDataList: translationDataList, start: targetLabelIndex+1, end: target_end) else {return nil}
         targetContent = _targetContent
 
-//        return TranslationItem(id: idStr, source: sourceContent, target: targetContent, targetLanguage: targetLanguage, xliffFileUrl: fileUrl, product: product)
-        return Xliff(sourceLanugage: sourceLanugage, sourceContent: _sourceContent, targetLanguage: targetLanguage, targetContent: _targetContent, fileUrl: fileUrl, product: product, origin: origin, x_source: x_source )
+        return TranslationItem(id: UUID(), source: sourceContent, target: targetContent, targetLanguage: targetLanguage, xliffFileUrl: fileUrl, product: product, origin: origin, x_path: x_path)
+//        return TranslationItem(sourceLanugage: sourceLanugage, sourceContent: _sourceContent, targetLanguage: targetLanguage, targetContent: _targetContent,  product: product, origin: origin, x_source: x_source )
+        
     }
     
     private func combineContent(translationDataList: [(String, String)], start: Int, end: Int) -> String? {

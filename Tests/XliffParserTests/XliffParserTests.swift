@@ -22,7 +22,7 @@ final class XliffParserTests: XCTestCase {
     func testXliffXSource() throws {
         let dict = xliff!.getTranslationDict()
 //        print(dict.count)
-        XCTAssertTrue(xliff?.x_source != "" )
+        XCTAssertTrue(xliff?.x_path != "" )
     }
     
     func testGetLanguage() throws {
