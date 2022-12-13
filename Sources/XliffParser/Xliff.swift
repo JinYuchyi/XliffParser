@@ -43,6 +43,15 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         } 
     }
     
+    init(sourceLanugage: String, targetLanguage: String, fileUrl: URL, product: String, origin: String, x_source: String) {
+        self.sourceLanugage = sourceLanugage
+        self.targetLanguage = targetLanguage
+        self.fileUrl = fileUrl
+        self.product = product
+        self.origin = origin
+        self.x_source = x_source
+    }
+    
     
     var depth = 0
     var depthIndent: String {
@@ -86,27 +95,27 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     }
     
     //[En-Content: [LocalizedContent: Language ]]
-    public func getTranslationDict(itemList: [TranslationItem]? = nil) -> [String: [String: String]] {
+    public func getTranslationDict(itemList: [Xliff]? = nil) -> [String: [String: String]] {
         var result: [String: [String: String]] = [:]
-        var list: [TranslationItem] = []
+        var list: [Xliff] = []
         if itemList == nil {
             list = getTranslationItemList()
         } else {
             list = itemList!
         }
         for item in list {
-            let tmpItem = [item.target : item.targetLanguage ]
-            if result[item.source] == nil {
-                result[item.source] = tmpItem
+            let tmpItem = [item.targetLanguage : item.targetLanguage ]
+            if result[item.sourceLanugage] == nil {
+                result[item.sourceLanugage] = tmpItem
             } else {
-                result[item.source]![item.target] = item.targetLanguage
+                result[item.sourceLanugage]![item.targetLanguage] = item.targetLanguage
             }
         }
         return result
     }
     
-    public func getTranslationItemList() -> [TranslationItem] {
-        var result: [TranslationItem] = []
+    public func getTranslationItemList() -> [Xliff] {
+        var result: [Xliff] = []
         var currentIndex = 0
 
         while (currentIndex <= (translationDataList.count - 1) ) {
@@ -137,7 +146,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         return nil
     }
 
-    private func getValidTransUnitElements(unitIndex: Int) -> TranslationItem? {
+    private func getValidTransUnitElements(unitIndex: Int) -> Xliff? {
         var idStr = ""
         var sourceContent = ""
         var targetContent = ""
@@ -157,7 +166,8 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         guard let _targetContent = combineContent(translationDataList: translationDataList, start: targetLabelIndex+1, end: target_end) else {return nil}
         targetContent = _targetContent
 
-        return TranslationItem(id: idStr, source: sourceContent, target: targetContent, targetLanguage: targetLanguage, xliffFileUrl: fileUrl, product: product)
+//        return TranslationItem(id: idStr, source: sourceContent, target: targetContent, targetLanguage: targetLanguage, xliffFileUrl: fileUrl, product: product)
+        return Xliff(sourceLanugage: sourceContent, targetLanguage: targetLanguage, fileUrl: fileUrl, product: product, origin: origin, x_source: x_source)
     }
     
     private func combineContent(translationDataList: [(String, String)], start: Int, end: Int) -> String? {
