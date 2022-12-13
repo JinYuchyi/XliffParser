@@ -10,7 +10,10 @@ import Foundation
 public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     
     public var sourceLanugage: String = ""
+    public var sourceContent: String = ""
     public var targetLanguage: String = ""
+    public var targetContent: String = ""
+
     public var fileUrl: URL
     public var product: String = ""
     public var origin: String = ""
@@ -43,9 +46,11 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         } 
     }
     
-    init(sourceLanugage: String, targetLanguage: String, fileUrl: URL, product: String, origin: String, x_source: String) {
+    init(sourceLanugage: String, sourceContent: String, targetLanguage: String, targetContent: String, fileUrl: URL, product: String, origin: String, x_source: String) {
         self.sourceLanugage = sourceLanugage
-        self.targetLanguage = targetLanguage
+        self.sourceContent = sourceContent
+        self.sourceLanugage = sourceLanugage
+        self.targetContent = targetContent
         self.fileUrl = fileUrl
         self.product = product
         self.origin = origin
@@ -147,13 +152,10 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     }
 
     private func getValidTransUnitElements(unitIndex: Int) -> Xliff? {
-        var idStr = ""
-        var sourceContent = ""
-        var targetContent = ""
-        let idIndex = unitIndex + 1
-        if translationDataList[idIndex].0 == "id" && isValidIdString(idStr: translationDataList[idIndex].1) {
-            idStr = translationDataList[idIndex].1
-        }
+//        let idIndex = unitIndex + 1
+//        if translationDataList[idIndex].0 == "id" && isValidIdString(idStr: translationDataList[idIndex].1) {
+//            idStr = translationDataList[idIndex].1
+//        }
         let sourceLabelIndex = unitIndex + 2
         guard let targetLabelIndex = getNextTargetIndex(currentIndex: sourceLabelIndex) else {return nil}
         // Get content end border
@@ -167,7 +169,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         targetContent = _targetContent
 
 //        return TranslationItem(id: idStr, source: sourceContent, target: targetContent, targetLanguage: targetLanguage, xliffFileUrl: fileUrl, product: product)
-        return Xliff(sourceLanugage: sourceContent, targetLanguage: targetLanguage, fileUrl: fileUrl, product: product, origin: origin, x_source: x_source)
+        return Xliff(sourceLanugage: sourceLanugage, sourceContent: _sourceContent, targetLanguage: targetLanguage, targetContent: _targetContent, fileUrl: fileUrl, product: product, origin: origin, x_source: x_source )
     }
     
     private func combineContent(translationDataList: [(String, String)], start: Int, end: Int) -> String? {
