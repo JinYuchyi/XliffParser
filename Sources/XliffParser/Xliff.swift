@@ -76,7 +76,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             sourceLanugage = _sourceLanugage
             targetLanguage = _targetLanugage
 
-            guard let _origin = (attributeDict["origin"] ?? attributeDict["original"]) else {
+            guard let _origin = (attributeDict["origin"]  else {
                 print("Error: Cannot find origin.")
                 return
             }
@@ -86,10 +86,11 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
                 return
             }
             product = _product
-            guard let _x_source = attributeDict["x-source-path"] else {
-                print("Error: Cannot find x-source-path. \(fileUrl) \(targetLanguage)")
-                return
-            }
+            let _x_source = attributeDict["x-source-path"] ?? ""
+//            else {
+//                print("Error: Cannot find x-source-path. \(fileUrl) \(targetLanguage)")
+//                return
+//            }
             x_path = _x_source
         }
         
