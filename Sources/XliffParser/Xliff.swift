@@ -77,6 +77,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             targetLanguage = _targetLanugage
 
             guard let _origin = attributeDict["origin"] else {
+
                 print("Error: Cannot find origin.")
                 return
             }
