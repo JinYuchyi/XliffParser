@@ -7,18 +7,15 @@
 
 import Foundation
 
-public struct TranslationItem: Identifiable, Comparable, Hashable {
+public struct TransUnitItem: Identifiable, Comparable, Hashable {
     public let id: UUID
+    public var transUnitIdStr: String
+    public var restype: String
     public var source: String
     public var target: String
-    public var targetLanguage: String
-    public var product: String
-    public var xliffFileUrl: URL?
-    public var origin: String
-    public var x_path: String
 
 
-    public static func < (lhs: TranslationItem, rhs: TranslationItem) -> Bool {
+    public static func < (lhs: TransUnitItem, rhs: TransUnitItem) -> Bool {
         lhs.source < rhs.source
     }
 
@@ -26,23 +23,16 @@ public struct TranslationItem: Identifiable, Comparable, Hashable {
         self.id = UUID()
         self.source = ""
         self.target = ""
-        self.targetLanguage = ""
-        self.xliffFileUrl = nil
-        self.product = ""
-        self.origin = ""
-        self.x_path = ""
+        self.transUnitIdStr = ""
+        self.restype = ""
     }
-    public init(id: UUID, source: String, target: String, targetLanguage: String, xliffFileUrl: URL, product: String, origin: String, x_path: String) {
-        self.id = id
+
+    public init(source: String, target: String, restype: String, transUnitIdStr: String) {
+        self.id = UUID()
         self.source = source
         self.target = target
-        self.targetLanguage = targetLanguage
-        self.xliffFileUrl = xliffFileUrl
-        self.product = product
-        self.origin = origin
-        self.x_path = x_path
+        self.restype = restype
+        self.transUnitIdStr = transUnitIdStr
     }
-
-
 
 }
