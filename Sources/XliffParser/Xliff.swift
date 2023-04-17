@@ -53,7 +53,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
     
     init(sourceLanugage: String, targetLanguage: String, fileUrl: URL, product: String, origin: String, x_source: String) {
         self.sourceLanugage = sourceLanugage
-        self.sourceLanugage = sourceLanugage
+        self.targetLanguage = targetLanguage
         self.fileUrl = fileUrl
         self.product = product
         self.origin = origin
@@ -96,8 +96,9 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             product = _product
         }
 
-        let _x_source = attributeDict["x-source-path"] ?? ""
-        x_path = _x_source
+        if let _x_source = attributeDict["x-source-path"] {
+            x_path = _x_source
+        }
 
         if elementName == "trans-unit" {
             var tmp = TransUnitItem()
