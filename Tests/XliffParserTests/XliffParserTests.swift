@@ -2,7 +2,7 @@ import XCTest
 @testable import XliffParser
 
 final class XliffParserTests: XCTestCase {
-    let url = URL(fileURLWithPath: "/Users/jin/Downloads/XliffFiles/Rome/PL/50onPaletteIM.xliff")
+    let url = URL(fileURLWithPath: "/Users/jin/Downloads/SW_STRINGS/SydneyE20E246_Glossaries/T/ZoomTouch.xliff")
     var xliff: Xliff?
 
     

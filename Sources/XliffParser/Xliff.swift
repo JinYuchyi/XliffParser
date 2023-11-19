@@ -31,11 +31,11 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         parser.delegate = self
         let success = parser.parse()
         if success {
-            for i in 0...(trans.count - 1 ){
-                print("\(trans[i].source) - \(trans[i].target)\n")
-                    }
+//            for i in 0...(trans.count - 1 ){
+//                print("\(trans[i].source) - \(trans[i].target)\n")
+//                    }
         } else {
-            print("error \(String(describing: parser.parserError?.localizedDescription))")
+            print("error: \(String(describing: parser.parserError?.localizedDescription))")
         }
     }
     
@@ -104,6 +104,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             var tmp = TransUnitItem()
             tmp.transUnitIdStr = attributeDict["id"] ?? ""
             tmp.restype = attributeDict["restype"] ?? ""
+
             tmpTranItem = tmp
         }
 
@@ -116,4 +117,6 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             trans.append(tmpTranItem!)
         }
     }
+
+    
 }
