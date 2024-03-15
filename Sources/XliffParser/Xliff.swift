@@ -10,8 +10,8 @@ import Foundation
 
 public class Xliff: NSObject, XMLParserDelegate, Identifiable {
 
-    private var sourceLanugage: String = ""
-    private var targetLanguage: String = ""
+    public var sourceLanugage: String = ""
+    public var targetLanguage: String = ""
 
     public var fileUrl: URL
     public var product: String = ""
