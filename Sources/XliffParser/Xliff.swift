@@ -9,9 +9,9 @@ import Foundation
 //import XMLParser
 
 public class Xliff: NSObject, XMLParserDelegate, Identifiable {
-    
-    public var sourceLanugage: String = ""
-    public var targetLanguage: String = ""
+
+    private var sourceLanugage: String = ""
+    private var targetLanguage: String = ""
 
     public var fileUrl: URL
     public var product: String = ""
@@ -30,11 +30,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
         let parser = XMLParser(contentsOf: fileUrl)!
         parser.delegate = self
         let success = parser.parse()
-        if success {
-//            for i in 0...(trans.count - 1 ){
-//                print("\(trans[i].source) - \(trans[i].target)\n")
-//                    }
-        } else {
+        if !success {
             print("error: \(String(describing: parser.parserError?.localizedDescription))")
         }
     }
@@ -102,6 +98,8 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
 
         if elementName == "trans-unit" {
             var tmp = TransUnitItem()
+            tmp.sourceLanguage = sourceLanugage
+            tmp.targetLanguage = targetLanguage
             tmp.transUnitIdStr = attributeDict["id"] ?? ""
             tmp.restype = attributeDict["restype"] ?? ""
 

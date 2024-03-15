@@ -21,15 +21,6 @@ final class XliffParserTests: XCTestCase {
         XCTAssertTrue( _count > 0 )
     }
 
-    func testXliffOtherInfo() throws {
-        let url = xliff!.fileUrl
-        let lang = xliff!.targetLanguage
-        let origin = xliff!.origin
-        let x_path = xliff!.x_path
-        let product = xliff!.product
-
-        XCTAssertTrue(  true)
-    }
 //
 //    func testXliffXSource() throws {
 //        let dict = xliff!.getTranslationDict()
