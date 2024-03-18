@@ -116,7 +116,7 @@ public class Tmx: NSObject, XMLParserDelegate, Identifiable {
             } else if currentAttributeType == "product-name" {
                 tmpTranItem.product = currentAttributeValue ?? ""
             } else if currentAttributeType == "original" {
-                tmpTranItem.original = currentAttributeValue ?? ""
+                tmpTranItem.origin = currentAttributeValue ?? ""
             } else if currentAttributeType == "id" {
                 tmpTranItem.id = currentAttributeValue ?? ""
             } else if currentAttributeType == "restype" {

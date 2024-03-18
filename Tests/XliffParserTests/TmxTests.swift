@@ -39,7 +39,7 @@ final class TmxTests: XCTestCase {
         let targetLanguageContained = (trans[index].targetLanguage != "")
         let productContained = (trans[index].product != "")
         let xTrainContained = (trans[index].xTrain != "")
-        let originalContained = (trans[index].original != "")
+        let originalContained = (trans[index].origin != "")
 
         let result = sourceContained && targetContained && idContained && transUnitIdStrContained &&
         restypeContained && sourceLanguageContained && targetLanguageContained && productContained &&

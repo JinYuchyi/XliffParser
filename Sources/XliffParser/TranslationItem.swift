@@ -18,7 +18,7 @@ public struct TransUnitItem: Identifiable, Comparable, Hashable {
     public var targetLanguage: String
     public var product: String
     public var xTrain: String
-    public var original: String
+    public var origin: String
 
     public static func < (lhs: TransUnitItem, rhs: TransUnitItem) -> Bool {
         lhs.source < rhs.source
@@ -35,7 +35,7 @@ public struct TransUnitItem: Identifiable, Comparable, Hashable {
         self.xTrain = ""
         self.sourceLanguage = ""
         self.targetLanguage = ""
-        self.original = ""
+        self.origin = ""
     }
 
     public init(source: String, target: String, restype: String, transUnitIdStr: String) {
@@ -49,7 +49,7 @@ public struct TransUnitItem: Identifiable, Comparable, Hashable {
         self.xTrain = ""
         self.sourceLanguage = ""
         self.targetLanguage = ""
-        self.original = ""
+        self.origin = ""
     }
 
 
