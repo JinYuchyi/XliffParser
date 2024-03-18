@@ -102,7 +102,7 @@ public class Xliff: NSObject, XMLParserDelegate, Identifiable {
             tmp.targetLanguage = targetLanguage
             tmp.transUnitIdStr = attributeDict["id"] ?? ""
             tmp.restype = attributeDict["restype"] ?? ""
-
+            tmp.origin = attributeDict["origin"] ?? ""
             tmpTranItem = tmp
         }
 
